@@ -53,9 +53,9 @@ class Sudoku {
     is_legal_move(row, col, value) {
         // check for non numbers
         // weird that JS match function doesn't put quotes around regex
-        if (!value.match(/^[1-9]$/m)) {
-            return false;
-        }
+        // if (!value.match(/^[1-9]$/m)) {
+        //     return false;
+        // }
 
         // check row
         for (let i = 0; i <= 8; i++) {
@@ -155,13 +155,7 @@ function highlight_temporarily(obj, timeout_in_ms) {
 
 clearButton.addEventListener('click', clearBoard)
 
-solveButton.addEventListener('click', function () {
-    for (const row of myTable.rows) {
-        for (const cell of row.cells) {
-
-        }
-    }
-})
+solveButton.addEventListener('click', printBoard)
 
 function clearBoard() {
     for (const row of myTable.rows) {
@@ -170,4 +164,55 @@ function clearBoard() {
             cell.childNodes[0].value = ''
         }
     }
+}
+
+
+function solveGame() {
+    const allInputs = myTable.getElementsByTagName('input')
+    console.log(allInputs.length)
+    Array.from(allInputs).forEach(function (input) {
+        const inputValue = input.value
+        if (inputValue !== '') {
+            // console.log(inputValue)
+
+        }
+    })
+}
+
+function printBoard() {
+    // const empty = game1.board[0][0]
+    // const filled = game1.board[0][1]
+    // const keepGoing = game1.board.some((n) => n === '0')
+    // if (!keepGoing) return
+
+    for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+            const element = game1.board[row][col];
+            if (element === '0') {
+                game1.board[row][col] = generateValue(row, col)
+            }
+        }
+
+    }
+}
+
+function generateValue(row, col) {
+    let value = 0
+    for (let i = 1; i <= 9; i++) {
+        const isValid = game1.is_legal_move(row, col, i)
+        if (isValid) {
+            value = i
+            myTable.rows[row].cells[col].children[0].value = value
+            break
+        }
+    }
+    return value
+}
+
+function isFilled() {
+    return game1.board.some(number => number === '8')
+}
+
+function addValueToInput(row, col, val) {
+    myTable.rows[row].cells[col].children[0].value = val
 }
