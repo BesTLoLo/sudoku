@@ -7,27 +7,9 @@ const importString = document.getElementById('importString').value
 const solveButton = document.getElementById('solve')
 const myTable = document.getElementById('myTable')
 
-const squaresBoard = [
-    [1, 1, 1, 2, 2, 2, 3, 3, 3],
-    [1, 1, 1, 2, 2, 2, 3, 3, 3],
-    [1, 1, 1, 2, 2, 2, 3, 3, 3],
-    [4, 4, 4, 5, 5, 5, 6, 6, 6],
-    [4, 4, 4, 5, 5, 5, 6, 6, 6],
-    [4, 4, 4, 5, 5, 5, 6, 6, 6],
-    [7, 7, 7, 8, 8, 8, 9, 9, 9],
-    [7, 7, 7, 8, 8, 8, 9, 9, 9],
-    [7, 7, 7, 8, 8, 8, 9, 9, 9]
-]
 
 
-
-
-
-
-
-
-let game1 = new Sudoku()
-
+let game = new Sudoku()
 
 
 clearButton.addEventListener('click', () => {
@@ -37,13 +19,15 @@ clearButton.addEventListener('click', () => {
             cell.childNodes[0].value = ''
         }
     }
-    game1 = new Sudoku()
+    game = new Sudoku()
 })
 
 importButton.addEventListener('click', () => {
-    game1.fillBoard(importString)
+    game.fillBoard(importString)
 })
 
-game1.board = examples.veryEasyGameArr()
+//game.board = examples.veryEasyGameArr()
 
-console.log(game1.board)
+solveButton.addEventListener('click', ()=>{
+    game.solve()
+})
